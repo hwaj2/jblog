@@ -10,8 +10,7 @@ import java.util.List;
 public interface UserMapper { //마이바티스에서 자동으로 매퍼 인터페이스가 구현된 클래스를 제공
 
     // 등록
-    @Insert("INSERT INTO USERS(ID, USERNAME, PASSWORD, EMAIL) " +
-            "VALUES((SELECT NVL(MAX(ID), 0) + 1 FROM USER), #{username}, #{password}, #{email})")
+    @Insert("INSERT INTO USERS(ID, USERNAME, PASSWORD, EMAIL) VALUES((SELECT NVL(MAX(ID), 0) + 1 FROM USERS), #{username}, #{password}, #{email})")
     public void insertUser(User user);
 
     // 수정
