@@ -12,3 +12,16 @@ spring:
     view:
       prefix: /WEB-INF/jblog/
       suffix: .jsp
+
+  # 데이터 소스 설정
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+
+  # 배너 설정
+  main:
+    banner-mode: off
+
+
