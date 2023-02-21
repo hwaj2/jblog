@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import java.util.List;
 
 @Mapper
-public interface UserMapper {
+public interface UserMapper { //마이바티스에서 자동으로 매퍼 인터페이스가 구현된 클래스를 제공
 
     // 등록
     @Insert("INSERT INTO USERS(ID, USERNAME, PASSWORD, EMAIL) " +
