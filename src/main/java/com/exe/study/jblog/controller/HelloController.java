@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+// 컨트롤러를 통한 간접 호출
 @Controller
 public class HelloController {
 
@@ -23,7 +24,7 @@ public class HelloController {
     public String jsp(Model model){
         model.addAttribute("message","안녕^_^");
         System.out.println("JSP파일이 요청되었습니다.");
-        return "jblog/";
+        return "hello";
     }
 
 }

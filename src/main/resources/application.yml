@@ -1,4 +1,4 @@
-# ?? ??
+# 서버 설정
 server:
   port: 8080
   servlet:
@@ -6,7 +6,7 @@ server:
     encoding:
       charset: UTF-8
 
-# ???? ??
+# 뷰 리졸버 설정
 spring:
   mvc:
     view:

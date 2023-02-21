@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-JSP페이지 입니다.
-<h1>${message}</h1>
+JSP페이지 입니다.<br>
+내가 말하고 싶은 메세지는 <h1>${message}</h1>
 </body>
 </html>
