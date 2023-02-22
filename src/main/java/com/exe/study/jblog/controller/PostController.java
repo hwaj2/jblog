@@ -30,7 +30,15 @@ public class PostController {
 
     @PostMapping("/auth/insertUser")
     public @ResponseBody ResponseDTO<?> insertUser(@RequestBody User user){ // ? 인이유는 어떤타입의 데이터가 반환될지 특정할수 없기 때문(문자,객체,컬렉션)
-        userService.insertUser(user);
-        return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님의 회원가입이 성공적으로 완료되었습니다.");
+
+        User findUser = userService.getUser(user.getUsername());
+        if(findUser.getUsername() == null){
+            userService.insertUser(user);
+            return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님의 회원가입이 성공적으로 완료되었습니다.");
+        }else{
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUsername() + "님은 이미 존재하는 회원입니다.");
+        }
     }
+
+
 }

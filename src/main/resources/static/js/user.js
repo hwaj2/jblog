@@ -44,7 +44,7 @@ let userObject = {
                 let message = response["data"];
                 alert(message);
                 console.log(message);
-                // location = "/";
+                location = "/";
             } else {
                 let warn = "";
                 let errors = response["data"];

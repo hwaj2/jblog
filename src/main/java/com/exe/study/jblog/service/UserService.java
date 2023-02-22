@@ -6,8 +6,8 @@ import com.exe.study.jblog.domain.User;
 import com.exe.study.jblog.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 public class UserService {
@@ -24,6 +24,16 @@ public class UserService {
         userRepository.save(user);
     }
 
+
+    @Transactional(readOnly = true)
+    public User getUser(String username) {
+
+        // 검색 결과가 없다면 빈 객체를 리턴한다.(일반 코드)
+        User findUser = userRepository.findByUsername(username).orElseGet(()->{
+            return new User();
+        });
+        return findUser;
+    }
 
 /*
     // 비밀번호를 암호화하여 설정한다.
@@ -50,15 +60,7 @@ public class UserService {
 
 
 
-    @Transactional(readOnly = true)
-    public User getUser(String username) {
-        // 검색 결과가 없다면 빈 객체를 리턴한다.(일반 코드)
-        User findUser = userRepository.findByUsername(username).orElseGet(()->{
-            return new User();
-        });
 
-        return findUser;
-    }
 */
 
 
