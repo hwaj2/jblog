@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -32,9 +33,16 @@ public class Post {
 
     private int cnt;
 
-    @ManyToOne(fetch = FetchType.EAGER) //post관점에서 회원과의 관계는 N : 1
+    // 도메인간의 연관관계 설정(데이터 베이스의 FK라고 이해)
+    // post관점에서 회원과의 관계는 N : 1
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userid")
     private User user;
+
+    // post관점에서 댓글과의 관계는 1 : N
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @OrderBy("id desc")
+    private List<Reply> replyList;
 
 
 }
