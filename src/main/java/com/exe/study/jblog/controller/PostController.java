@@ -65,14 +65,6 @@ public class PostController {
     @PostMapping("/post")
     public @ResponseBody ResponseDTO<?> insertPost(@Valid @RequestBody PostDTO postDTO,
                                                    BindingResult bindingResult, HttpSession httpSession){
-        if(bindingResult.hasErrors()){
-            Map<String, String> errorMap = new HashMap<>();
-            for(FieldError error : bindingResult.getFieldErrors()){
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
-        }
-
         Post post = modelMapper.map(postDTO, Post.class); //dto > entity로 변환
 
         User principal = (User) httpSession.getAttribute("principal");

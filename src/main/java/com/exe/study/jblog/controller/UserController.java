@@ -42,16 +42,6 @@ public class UserController {
         @Valid 어노테이션에 의해 유효성검사 작동, 그 결과가 자동으로 BindingResult객체에 저장
         반드시!! BindingResult변수는 반드시 @Valid 다음에 위치해야한다
     */
-        // 1. 입력값에대한 유효성 검사
-        if(bindingResult.hasErrors()){
-            Map<String, String> errorMap = new HashMap<>();
-            for(FieldError error : bindingResult.getFieldErrors()){
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errorMap);
-        }
-
-        // 2. 회원가입
         User user = modelMapper.map(userDTO, User.class); // * dto > entity로 변경
         User findUser =  userService.getUserName(user.getUsername());
 
