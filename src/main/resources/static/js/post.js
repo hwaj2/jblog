@@ -28,9 +28,19 @@ let postObject = {
             data: JSON.stringify(post),
             contentType: "application/json; charset=utf-8"
         }).done(function(response) {
-            let message = response["data"];
-            alert(message);
-            location = "/";  /*인덱스 목록페이지로 이동*/
+            let status = response["status"];
+            if(status == 200) {
+                let message = response["data"];
+                alert(message);
+                console.log(message);
+                location = "/";
+            } else {
+                let warn = "";
+                let errors = response["data"];
+                if(errors.title != null) warn = warn + errors.title + "\n";
+                if(errors.content != null) warn = warn + errors.content + "\n";
+                alert(warn);
+            }
         }).fail(function(error) {
             let message = error["data"];
             alert("문제 발생 : " + message);
