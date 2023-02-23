@@ -1,81 +1,53 @@
 package com.exe.study.jblog.controller;
 
-import com.exe.study.jblog.domain.RoleType;
 import com.exe.study.jblog.domain.User;
-import com.exe.study.jblog.exception.JBlogException;
-import com.exe.study.jblog.persistence.UserRepository;
+import com.exe.study.jblog.dto.ResponseDTO;
+import com.exe.study.jblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 
 @Controller
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    //회원등록
-    @PostMapping("/user")
-    public @ResponseBody String insertUser(@RequestBody User user) {
-        user.setRole(RoleType.USER);
-        userRepository.save(user);
-        return user.getUsername() + " 회원님의 가입이 성공적으로 완료 되었습니다.";
+
+    // 회원가입 페이지
+    @GetMapping("/auth/insertUser")
+    public String insertUser(){
+        return "user/insertUser";
     }
 
-    //회원단건조회
-    @GetMapping("/user/get/{id}")
-    public @ResponseBody User getUser(@PathVariable int id) {
-        User findUser = userRepository.findById(id).orElseThrow(() -> {
-            return new JBlogException(id + " 번 회원이 존재하지 않습니다.");
-        });
+
+    // 회원가입
+    @PostMapping("/auth/insertUser")
+    public @ResponseBody ResponseDTO<?> insertUser(@RequestBody User user){ // ? 인이유는 어떤타입의 데이터가 반환될지 특정할수 없기 때문(문자,객체,컬렉션)
+
+        User findUser = userService.getUserName(user.getUsername());
+        if(findUser.getUsername() == null){
+            userService.insertUser(user);
+            return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님의 회원가입이 성공적으로 완료되었습니다.");
+        }else{
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUsername() + "님은 이미 존재하는 회원입니다.");
+        }
+    }
+
+
+    // 회원 조회(페이지없음)
+    @GetMapping("/user/{id}")
+    public @ResponseBody User getUser(@PathVariable int id){
+        User findUser =  userService.getUser(id);
         return findUser;
     }
 
-    //회원목록조회
-    @GetMapping("/user/list")
-    public @ResponseBody List<User> getUserList(){
-        return userRepository.findAll();
-    }
 
-    //회원수정
-    @Transactional //원래는 서비스에서 사용해야함
-    @PutMapping("/user")
-    public @ResponseBody String updateUser(@RequestBody User user){
-        User findUser = userRepository.findById(user.getId()).orElseThrow(()->{
-            return new JBlogException(user.getId() + " 번 회원이 존재하지 않습니다.");
-        });
-        findUser.setUsername(user.getUsername());
-        findUser.setPassword(user.getPassword());
-        findUser.setEmail(user.getEmail());
-        // userRepository.save(findUser); @Transactional이용시에 jpa에서 변경감지 기능을 통해 자동으로 update진행
-        return "회원 수정 성공";
-    }
 
-    //회원삭제
-    @DeleteMapping("/user/{id}")
-    public @ResponseBody String deleteUser(@PathVariable int id){
-        userRepository.deleteById(id);
-        return "회원삭제 성공!!";
-    }
-
-    //목록 페이징처리(@PageDefault사용)
-    @GetMapping("/user/page")
-    public @ResponseBody Page<User> getUserListPaging2(
-            @PageableDefault(page = 0, size = 2, direction = Sort.Direction.DESC, sort = {"id","username"}) Pageable pageable){ // 페이지번호, 출력할 데이터의 개수, 정렬에 관한 정보
-        // 첫번째 페이지(0)에 해당하는 2개의 데이터 조회
-        // id 내림차순 정렬
-        // 만약, page와 size정보를 동적으로 변경하고 싶다면, /user/page?page=0&size=5
-        return userRepository.findAll(pageable);
-        }
 
     }
 

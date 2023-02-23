@@ -15,54 +15,28 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-   // @Autowired
-    // private PasswordEncoder passwordEncoder;
-
     @Transactional
     public void insertUser(User user) {
         user.setRole(RoleType.USER);
         userRepository.save(user);
     }
 
-
     @Transactional(readOnly = true)
-    public User getUser(String username) {
-
-        // 검색 결과가 없다면 빈 객체를 리턴한다.(일반 코드)
+    public User getUserName(String username) {
         User findUser = userRepository.findByUsername(username).orElseGet(()->{
             return new User();
         });
         return findUser;
     }
 
-/*
-    // 비밀번호를 암호화하여 설정한다.
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        user.setRole(RoleType.USER);
-        if(user.getOauth() == null) {
-        user.setOauth(OAuthType.JBLOG);
-    }
-        userRepository.save(user);
-*/
-
-
-/*
-    @Transactional
-    public User updateUser(User user) {
-        User findUser = userRepository.findById(user.getId()).get();
-        findUser.setUsername(user.getUsername());
-        findUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        findUser.setEmail(user.getEmail());
-
+    @Transactional(readOnly = true)
+    public User getUser(int id) {
+        User findUser = userRepository.findById(id).orElseGet(()->{
+            return new User();
+        });
         return findUser;
     }
-
-
-
-
-*/
-
 
 
 }

@@ -28,7 +28,7 @@ public class LoginController {
     // 로그인
     @PostMapping("/auth/login")
     public @ResponseBody ResponseDTO<?> login(@RequestBody User user, HttpSession session){
-        User findUser = userService.getUser(user.getUsername());
+        User findUser = userService.getUserName(user.getUsername());
         if(findUser.getUsername() == null) {
             System.out.println("해당 아이디가 존재하지 않습니다.");
             return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "해당 아이디가 존재하지 않습니다.");
