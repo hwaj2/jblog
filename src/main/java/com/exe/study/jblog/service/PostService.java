@@ -29,8 +29,11 @@ public class PostService {
         return postRepository.findAll(pageable);
     }
 
+    // 포스트 수정
 
-
-
+    // 포스트 상세조회
+    public Post getPost(int id){
+        return postRepository.findById(id).get();
+    }
 
 }
