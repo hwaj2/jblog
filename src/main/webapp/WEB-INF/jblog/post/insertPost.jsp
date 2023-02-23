@@ -24,5 +24,5 @@
     });
 </script>
 
-<script src="/js/user.js"></script>
+<script src="/js/post.js"></script>
 <%@ include file="../layout/footer.jsp"%>

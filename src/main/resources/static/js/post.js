@@ -30,7 +30,7 @@ let postObject = {
         }).done(function(response) {
             let message = response["data"];
             alert(message);
-            location = "/";
+            location = "/";  /*인덱스 목록페이지로 이동*/
         }).fail(function(error) {
             let message = error["data"];
             alert("문제 발생 : " + message);

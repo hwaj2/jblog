@@ -5,12 +5,12 @@
 <div class="container mt-3">
     <form>
         <div class="mb-3">
-            <label for="uname">아이디:</label>
+            <label for="username">아이디:</label>
             <input type="text" class="form-control" id="username"
                    placeholder="Enter username" name="username">
         </div>
         <div class="mb-3">
-            <label for="pwd">비밀번호:</label>
+            <label for="password">비밀번호:</label>
             <input type="password" class="form-control" id="password"
                    placeholder="Enter password" name="password">
         </div>

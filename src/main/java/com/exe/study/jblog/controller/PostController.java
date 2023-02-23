@@ -8,6 +8,7 @@ import com.exe.study.jblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,9 +25,28 @@ public class PostController {
     private PostService postService;
 
 
+    // 포스트 목록 조회(index페이지)
     @GetMapping({"","/"})
-    public String index(){
+    public String getPostList(Model model){
+        model.addAttribute("postList", postService.getPostList());
         return "index";
+    }
+
+    // 포스트 등록페이지
+    @GetMapping("/post/insertPost")
+    public String insertPost(){
+        return "post/insertPost";
+    }
+
+
+    // 포스트 등록
+    @PostMapping("/post") // 등록될때 연관된 회원 엔티티가 할당되야하므로 > 세션으로부터 사용자정보확인
+    public @ResponseBody ResponseDTO<?> insertPost(@RequestBody Post post, HttpSession httpSession){
+        User principal = (User) httpSession.getAttribute("principal");
+        post.setUser(principal);
+        post.setCnt(0);
+        postService.insertPost(post);
+        return new ResponseDTO<>(HttpStatus.OK.value(), "성공적으로 포스트가 등록되었습니다.");
     }
 
     // 회원가입 페이지
@@ -49,20 +69,23 @@ public class PostController {
         }
     }
 
-    // 포스트 등록페이지
-    @GetMapping("/auth/insertPost")
-    public String insertPost(){
-        return "post/insertPost";
-    }
 
-    // 포스트 등록
-    @PostMapping("/post") // 등록될때 연관된 회원 엔티티가 할당되야하므로 > 세션으로부터 사용자정보확인
-    public @ResponseBody ResponseDTO<?> insertPost(@RequestBody Post post, HttpSession httpSession){
-        User principal = (User) httpSession.getAttribute("principal");
-        post.setUser(principal);
-        post.setCnt(0);
-        postService.insertPost(post);
-        return new ResponseDTO<>(HttpStatus.OK.value(), "성공적으로 포스트가 등록되었습니다.");
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
