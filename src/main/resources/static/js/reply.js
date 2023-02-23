@@ -38,7 +38,7 @@ let replyObject = {
         }).done(function(response) {
             let message = response["data"];
             alert(message);
-            location = "/post/" + postId;
+            location = "/post/" + postId; //postId를 통해 해당 상세화면으로 돌아가기 위해서
         });
     },
 

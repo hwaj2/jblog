@@ -36,4 +36,5 @@ public class Reply {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userid")
     private User user;	// 관련된 유저
+
 }

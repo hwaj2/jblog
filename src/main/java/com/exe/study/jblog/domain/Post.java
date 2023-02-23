@@ -40,7 +40,8 @@ public class Post {
     private User user;
 
     // post관점에서 댓글과의 관계는 1 : N
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER,
+            cascade = CascadeType.REMOVE) //Post삭제시 Reply도 같이 삭제되어짐
     @OrderBy("id desc")
     private List<Reply> replyList;
 

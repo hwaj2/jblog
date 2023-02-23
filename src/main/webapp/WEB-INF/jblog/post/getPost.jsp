@@ -27,7 +27,7 @@
     </c:if>
     <br><br>
 
-<%--
+   <%--댓글 목록 조회--%>
     <c:if test="${ !empty post.replyList }">
         <div class="container mt-3">
             <table class="table">
@@ -38,7 +38,6 @@
                     <c:if test="${reply.user.username != null && reply.user.username == principal.username }">
                         <th width="10%">삭제</th>
                     </c:if>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -50,14 +49,13 @@
                             <td><button onclick="replyObject.deleteReply(${post.id},
                                 ${reply.id })">삭제</button></td>
                         </c:if>
-
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
     </c:if>
---%>
+    <%--댓글 목록 조회--%>
 
     <%--댓글 등록 --%>
     <div class="container mt-3">
