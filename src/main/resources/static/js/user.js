@@ -30,15 +30,13 @@ let userObject = {
         console.log(user);
 
         // Ajax를 이용한 비동기 호출
-        // done()에는 요청이 성공했을 때 코드를,
-        // fail()에는 실패했을 때의 코드를 작성한다.
         $.ajax({
             type: "POST", // 요청 방식
-            url: "/auth/insertUser",                        // 요청 path
+            url: "/auth/insertUser",
             data: JSON.stringify(user),                     //user Object를 JSON으로 변환
             contentType: "application/json; charset=utf-8"  // HTTP 바디에 설정되는 데이터의 마임타입설정
 
-        }).done(function(response) {  // 응답으로 들어온 JSON 데이터를 response로 받는다
+        }).done(function(response) {
             let status = response["status"];
             if(status == 200) {
                 let message = response["data"];
@@ -54,7 +52,6 @@ let userObject = {
                 alert(warn);
             }
         }).fail(function(error) {
-            // 에러 메시지를 알림창에 출력
             alert("에러 발생 : " + error);
         });
     },
