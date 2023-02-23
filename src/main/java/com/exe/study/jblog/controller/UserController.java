@@ -67,7 +67,7 @@ public class UserController {
         return "회원삭제 성공!!";
     }
 
-    //페이징처리(@PageDefault사용)
+    //목록 페이징처리(@PageDefault사용)
     @GetMapping("/user/page")
     public @ResponseBody Page<User> getUserListPaging2(
             @PageableDefault(page = 0, size = 2, direction = Sort.Direction.DESC, sort = {"id","username"}) Pageable pageable){ // 페이지번호, 출력할 데이터의 개수, 정렬에 관한 정보

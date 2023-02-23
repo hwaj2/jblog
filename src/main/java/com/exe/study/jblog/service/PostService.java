@@ -3,6 +3,8 @@ package com.exe.study.jblog.service;
 import com.exe.study.jblog.domain.Post;
 import com.exe.study.jblog.persistence.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +25,8 @@ public class PostService {
     }
 
     // 포스트 목록조회
-    public List<Post> getPostList(){
-        return postRepository.findAll();
+    public Page<Post> getPostList(Pageable pageable){
+        return postRepository.findAll(pageable);
     }
 
 
