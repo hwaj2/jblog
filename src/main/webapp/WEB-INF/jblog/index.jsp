@@ -3,7 +3,7 @@
 
 <%-- content --%>
 <div class="container mt-3">
-   <c:if test="${!empty postList}">
+    <c:if test="${!empty postList}">
 
         <div class="card">
             <c:forEach var="post" items="${postList.content}">
@@ -15,15 +15,15 @@
         </div>
 
            <ul class="pagination justify-content-between" >
-               <li class="page-item">
-                   <a class="page-link" href="?page=${postList.number - 1}">이전</a>
+               <li class="page-item <c:if test="${postList.first}">disabled</c:if>">
+                   <a class="page-link" href="?page=${postList.number-1}">이전</a>
                </li>
-               <li class="page-item">
-                   <a class="page-link" href="?page=${postList.number + 1}">다음</a>
+              <li class="page-item <c:if test="${postList.last}">disabled</c:if>">
+                   <a class="page-link" href="?page=${postList.number+1}">다음</a>
                </li>
            </ul>
 
-   </c:if>
+    </c:if>
 </div>
 <%-- //content --%>
 
