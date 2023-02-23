@@ -4,17 +4,23 @@
 <div class="container mt-3">
     <form>
         <div class="mb-3">
-            <label for="username">아이디 : </label>
+            <label for="username">
+                <spring:message code="user.login.form.username"/>
+            </label>
             <input type="text" class="form-control" id="username"
                    placeholder="Enter username">
         </div>
         <div class="mb-3">
-            <label for="password">비밀번호 : </label>
+            <label for="password">
+                <spring:message code="user.login.form.password"/>
+            </label>
             <input type="password" class="form-control" id="password"
                    placeholder="Enter password">
         </div>
 
-        <button id="btn-login" class="btn btn-secondary">로그인</button>
+        <button id="btn-login" class="btn btn-secondary">
+            <spring:message code="user.login.form.login_btn"/>
+        </button>
     </form>
 
 </div>
