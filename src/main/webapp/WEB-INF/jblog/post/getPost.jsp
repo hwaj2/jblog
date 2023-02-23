@@ -21,12 +21,15 @@
 
     <hr>
     <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
-    <a href="/post/updatePost/${post.id }" class="btn btn-warning">수정하기</a>
-    <button id="btn-delete" class="btn btn-danger">삭제하기</button>
+
+    <c:if test="${post.user.username == principal.username }"> <%--본인만 수정 삭제 가능--%>
+        <a href="/post/updatePost/${post.id }" class="btn btn-warning">수정하기</a>
+        <button id="btn-delete" class="btn btn-danger">삭제하기</button>
+    </c:if>
     <br><br>
 
 
-<%--<c:if test="${post.user.username == principal.username }">  </c:if>--%>
+
 </div>
 
 <%--<script src="/js/reply.js"></script>--%>

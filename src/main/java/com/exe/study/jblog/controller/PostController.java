@@ -3,7 +3,6 @@ package com.exe.study.jblog.controller;
 import com.exe.study.jblog.domain.Post;
 import com.exe.study.jblog.domain.User;
 import com.exe.study.jblog.dto.ResponseDTO;
-import com.exe.study.jblog.persistence.PostRepository;
 import com.exe.study.jblog.service.PostService;
 import com.exe.study.jblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,19 +57,28 @@ public class PostController {
         return "post/getPost";
     }
 
-    // 포스트 수정
+    // 포스트 수정페이지
     @GetMapping("/post/updatePost/{id}")
     public String updatePost(@PathVariable int id, Model model){
         model.addAttribute("post", postService.getPost(id));
         return "post/updatePost";
     }
 
+    // 포스트 수정
     @PutMapping("post")
     public @ResponseBody ResponseDTO<?> updatePost(@RequestBody Post post){
         postService.updatePost(post);
         System.out.println("포스트 수정완료!");
         return new ResponseDTO<>(HttpStatus.OK.value(), post.getId() + "번의 포스트가 수정완료 되었습니다.");
     }
+
+    // 포스트 삭제
+    @DeleteMapping("post/{id}")
+    public @ResponseBody ResponseDTO<?> deletePost(@PathVariable int id){
+        postService.deletePost(id);
+        return new ResponseDTO<>(HttpStatus.OK.value(), id +"번의 포스트가 삭제완료 되었습니다.");
+    }
+
 
 
     // 회원가입 페이지
