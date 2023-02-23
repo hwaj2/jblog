@@ -10,6 +10,12 @@
     <script src="/webjars/jquery/3.5.1/dist/jquery.min.js"></script>
     <script src="/webjars/bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
     <link href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Summernote 시작 -->
+    <link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+    <script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+    <!-- Summernote 종료 -->
+
 </head>
 
 <body>
