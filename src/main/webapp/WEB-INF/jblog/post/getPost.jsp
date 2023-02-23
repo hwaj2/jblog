@@ -29,7 +29,7 @@
 <%--<c:if test="${post.user.username == principal.username }">  </c:if>--%>
 </div>
 
-<script src="/js/reply.js"></script>
+<%--<script src="/js/reply.js"></script>--%>
 <script src="/js/post.js"></script>
 <%@ include file="../layout/footer.jsp"%>
 

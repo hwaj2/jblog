@@ -29,7 +29,14 @@ public class PostService {
         return postRepository.findAll(pageable);
     }
 
-    // 포스트 수정
+    // 포스트 수정(추후 꼭 수정 필요, 영속성 감지기능으로 인해서 데이터가 바뀌어야하는데 바뀌지 않는경우,,? 뭐지 )
+    @Transactional
+    public void updatePost(Post post){
+        Post findPost = postRepository.findById(post.getId()).get();
+        findPost.setTitle(post.getTitle());
+        findPost.setContent(post.getContent());
+    }
+
 
     // 포스트 상세조회
     public Post getPost(int id){
