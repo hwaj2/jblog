@@ -8,11 +8,21 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 //환경설정 적용하기
 @Configuration
 public class JBlogWebMvcConfiguration implements WebMvcConfigurer {
+
+
+    // 로케일 변경 : 브라우저의 로케일과 상관없이 다른 언어로 메세지를 변경하고 싶은 경우
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor(){
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        return localeChangeInterceptor;
+    }
 
     // 다국어처리(2가지의 객체 필요)
     @Bean("messageSource")
@@ -37,6 +47,7 @@ public class JBlogWebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(
                 new AuthenticateInterceptor()).
                 addPathPatterns("/","/post/**"); //세션에 정보가 존재한 사람만 접근가능(인증)
+        registry.addInterceptor(localeChangeInterceptor()); //로케일 정보 변경
 
     }
 }
